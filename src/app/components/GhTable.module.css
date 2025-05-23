@@ -1,0 +1,128 @@
+/* Custom styles for GhTable that extend devlink classes */
+/* Uses existing devlink classes: w-input, w-select, w-form-label, button */
+
+.container {
+  margin: 0 auto;
+  color: hsla(0, 0%, 100%, 1);
+}
+
+.formSection {
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Override devlink input styles for dark theme */
+.darkInput {
+  background-color: hsla(0, 0%, 0%, 1) !important;
+  color: hsla(0, 0%, 100%, 1) !important;
+  border-color: var(--borderRadius-c0417f39) !important;
+  min-width: 350px;
+  max-width: 500px;
+  margin: 0;
+}
+
+.darkInput::placeholder {
+  color: var(--gray300-1490ec53) !important;
+}
+
+.darkInput:focus {
+  border-color: var(--primary-4b5c02bd) !important;
+}
+
+.darkSelect {
+  background-color: hsla(0, 0%, 0%, 1) !important;
+  color: hsla(0, 0%, 100%, 1) !important;
+  border-color: var(--borderRadius-c0417f39) !important;
+  min-width: 180px;
+  max-width: 300px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.darkSelect:focus {
+  border-color: var(--primary-4b5c02bd) !important;
+}
+
+.filterSection {
+  margin: 24px 0 32px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.loadingState {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 20px;
+  color: var(--gray300-1490ec53);
+  font-family: Inter, sans-serif;
+}
+
+.errorState {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 20px;
+  color: #dc2626;
+  font-family: Inter, sans-serif;
+}
+
+.departmentSection {
+  margin: 0 0 32px 0;
+  border: 1px solid var(--borderRadius-c0417f39);
+  border-radius: 12px;
+  background-color: var(--borderRadius-c0417f39);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  padding: 24px;
+}
+
+.departmentHeading {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: hsla(0, 0%, 100%, 1);
+  font-family: Satoshi, sans-serif;
+}
+
+.jobsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.jobListing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: hsla(0, 0%, 0%, 1);
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--gray500-c8810603);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.jobListing:hover {
+  border-color: var(--primary-4b5c02bd);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.jobTitle {
+  font-weight: 600;
+  font-size: 18px;
+  max-width: 350px;
+  font-family: Inter, sans-serif;
+}
+
+.jobLocation {
+  font-size: 16px;
+  color: var(--gray300-1490ec53);
+  margin-left: 24px;
+  font-family: Inter, sans-serif;
+}

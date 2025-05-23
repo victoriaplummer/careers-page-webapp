@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useState } from "react";
+import navbarStyles from "@/devlink/Navbar.module.css";
+import textInputBlockStyles from "@/devlink/TextInputBlock.module.css";
+import styles from "./GhTable.module.css";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -48,16 +51,11 @@ export function GhTable() {
   };
 
   return (
-    <div
-      style={{
-        margin: "0 auto",
-        color: "#f3f4f6",
-      }}
-    >
-      <div>
+    <div className={styles.container}>
+      <div className={styles.formSection}>
         <label
           htmlFor="gh-slug"
-          style={{ fontWeight: 500, fontSize: 18, marginBottom: 8 }}
+          className={`w-form-label ${textInputBlockStyles["input-label"]}`}
         >
           Greenhouse slug
         </label>
@@ -66,52 +64,24 @@ export function GhTable() {
             e.preventDefault();
             setGhSlug(inputRef.current?.value || "");
           }}
-          style={{ display: "flex", alignItems: "center" }}
+          className={styles.form}
         >
           <input
             id="gh-slug"
             ref={inputRef}
             type="text"
             placeholder={`Enter Greenhouse slug (i.e. "webflow")`}
-            style={{
-              padding: "8px 16px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              marginRight: 16,
-              fontSize: 16,
-              minWidth: "350px",
-            }}
+            className={`w-input ${textInputBlockStyles["input"]} ${styles.darkInput}`}
           />
-          <button
-            type="submit"
-            style={{
-              padding: "8px 16px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              fontSize: 16,
-              cursor: "pointer",
-              background: "#27272a",
-              color: "#f3f4f6",
-            }}
-          >
+          <button type="submit" className={`button ${navbarStyles.button}`}>
             Enter
           </button>
         </form>
       </div>
 
       {/* Filter Dropdown */}
-      <div
-        style={{
-          margin: "24px 0 32px 0",
-          display: "flex",
-          alignItems: "center",
-          gap: 16,
-        }}
-      >
-        <label
-          htmlFor="department-filter"
-          style={{ fontWeight: 500, fontSize: 18 }}
-        >
+      <div className={styles.filterSection}>
+        <label htmlFor="department-filter" className="w-form-label">
           Filter by department:
         </label>
         <select
@@ -119,14 +89,7 @@ export function GhTable() {
           value={selectedDepartment}
           onChange={handleFilterChange}
           data-gh="filter"
-          style={{
-            padding: "8px 16px",
-            borderRadius: 8,
-            border: "1px solid #d1d5db",
-            fontSize: 16,
-            cursor: "pointer",
-            minWidth: 180,
-          }}
+          className={`w-select ${styles.darkSelect}`}
         >
           <option value="all">All Departments</option>
           {departments.map((dept) => (
@@ -139,29 +102,14 @@ export function GhTable() {
 
       {/* Loading State */}
       {isLoading && (
-        <div
-          data-gh="loading"
-          style={{
-            textAlign: "center",
-            padding: "40px 0",
-            fontSize: 20,
-            color: "#6b7280",
-          }}
-        >
+        <div data-gh="loading" className={styles.loadingState}>
           Loading...
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div
-          style={{
-            textAlign: "center",
-            padding: "40px 0",
-            fontSize: 20,
-            color: "#dc2626",
-          }}
-        >
+        <div className={styles.errorState}>
           Could not find jobs on Greenhouse for this group
         </div>
       )}
@@ -180,79 +128,36 @@ export function GhTable() {
               key={dept.id}
               data-gh="section-wrapper"
               id={String(dept.id)}
-              style={{
-                margin: "0 0 32px 0",
-                border: "1px solid #27272a",
-                borderRadius: 12,
-                background: "#27272a",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
-                padding: 24,
-              }}
+              className={styles.departmentSection}
             >
               <h2
                 data-gh="section-heading"
-                style={{
-                  fontSize: 22,
-                  fontWeight: 700,
-                  marginBottom: 18,
-                  color: "#fff",
-                }}
+                className={styles.departmentHeading}
               >
                 {dept.name}
               </h2>
               <div
                 data-gh="container"
                 aria-label={dept.name}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                }}
+                className={styles.jobsContainer}
               >
                 {dept.jobs.map((job) => (
-                  <div
+                  <a
                     key={job.id}
                     data-gh="listing"
                     id={String(job.id)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      background: "#1e293b",
-                      borderRadius: 8,
-                      padding: "16px 20px",
-                      boxShadow: "0 1px 4px rgba(0,0,0,0.03)",
-                      border: "1px solid #334155",
-                      transition: "box-shadow 0.2s",
-                      cursor: "pointer",
-                    }}
+                    href={job.absolute_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.jobListing}
                   >
-                    <a
-                      data-gh="job-title"
-                      href={job.absolute_url}
-                      style={{
-                        fontWeight: 600,
-                        fontSize: 18,
-                        color: "#60a5fa",
-                        textDecoration: "none",
-                        maxWidth: "350px",
-                      }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <span data-gh="job-title" className={styles.jobTitle}>
                       {job.title}
-                    </a>
-                    <span
-                      data-gh="job-location"
-                      style={{
-                        fontSize: 16,
-                        color: "#cbd5e1",
-                        marginLeft: 24,
-                      }}
-                    >
+                    </span>
+                    <span data-gh="job-location" className={styles.jobLocation}>
                       {job.location.name}
                     </span>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
