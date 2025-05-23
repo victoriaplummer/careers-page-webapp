@@ -3,7 +3,7 @@
     "framework": "nextjs"
   },
   "devlink": {
-    "rootDir": "./devlink",
+    "rootDir": "./src/devlink",
     "cssModules": true
   }
 }

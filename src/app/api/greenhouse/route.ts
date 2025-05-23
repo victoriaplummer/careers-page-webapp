@@ -1,8 +1,9 @@
 // src/app/api/greenhouse/departments/route.ts
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  const ghSlug = "webflow";
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const ghSlug = searchParams.get('ghSlug') || "webflow";
   const url = `https://boards-api.greenhouse.io/v1/boards/${ghSlug}/departments/`;
 
   try {

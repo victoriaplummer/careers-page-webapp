@@ -1,5 +1,5 @@
 import * as React from "react";
 
-declare function GreenhouseSlugInput(props: {
+declare function LocaleDropdown(props: {
   as?: React.ElementType;
 }): React.JSX.Element;

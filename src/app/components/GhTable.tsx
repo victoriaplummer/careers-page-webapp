@@ -1,12 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-
+import { useRef } from "react";
 import { useState } from "react";
-import { OpenRolesHeading } from "../../../devlink/OpenRolesHeading";
-import { GhTableHeaders } from "../../../devlink/GhTableHeaders";
-import { GhTableBody } from "../../../devlink/GhTableBody";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 // Types
 export type Job = {
@@ -22,29 +18,25 @@ export type Department = {
   jobs: Job[];
 };
 
-async function fetchDepartments(): Promise<{ departments: Department[] }> {
-  const res = await fetch(`${basePath}/api/greenhouse`);
-  if (!res.ok) throw new Error("Failed to fetch departments");
+async function fetchDepartments(
+  ghSlug: string
+): Promise<{ departments: Department[] }> {
+  const res = await fetch(
+    `${basePath}/api/greenhouse?ghSlug=${ghSlug || "webflow"}`
+  );
+  if (!res.ok)
+    throw new Error("Could not find jobs on Greenhouse for this group");
   return res.json();
 }
 
 export function GhTable() {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const match = window.matchMedia('(prefers-color-scheme: dark)');
-      setIsDarkMode(match.matches);
-      const handler = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
-      match.addEventListener('change', handler);
-      return () => match.removeEventListener('change', handler);
-    }
-  }, []);
+  const [ghSlug, setGhSlug] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["departments"],
-    queryFn: fetchDepartments,
+    queryKey: ["departments", ghSlug],
+    queryFn: () => fetchDepartments(ghSlug),
     staleTime: 60 * 1000, // 1 minute
   });
 
@@ -58,20 +50,68 @@ export function GhTable() {
   return (
     <div
       style={{
-        maxWidth: 900,
         margin: "0 auto",
-        borderRadius: 16,
-        boxShadow: "0 4px 24px rgba(0,0,0,0.07)",
-        padding: 32,
-        background: isDarkMode ? "#18181b" : "#fff",
-        color: isDarkMode ? "#f3f4f6" : undefined,
+        color: "#f3f4f6",
       }}
     >
-      <OpenRolesHeading />
+      <div>
+        <label
+          htmlFor="gh-slug"
+          style={{ fontWeight: 500, fontSize: 18, marginBottom: 8 }}
+        >
+          Greenhouse slug
+        </label>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setGhSlug(inputRef.current?.value || "");
+          }}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <input
+            id="gh-slug"
+            ref={inputRef}
+            type="text"
+            placeholder={`Enter Greenhouse slug (i.e. "webflow")`}
+            style={{
+              padding: "8px 16px",
+              borderRadius: 8,
+              border: "1px solid #d1d5db",
+              marginRight: 16,
+              fontSize: 16,
+              minWidth: "350px",
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              padding: "8px 16px",
+              borderRadius: 8,
+              border: "1px solid #d1d5db",
+              fontSize: 16,
+              cursor: "pointer",
+              background: "#27272a",
+              color: "#f3f4f6",
+            }}
+          >
+            Enter
+          </button>
+        </form>
+      </div>
 
       {/* Filter Dropdown */}
-      <div style={{ margin: "24px 0 32px 0", display: "flex", alignItems: "center", gap: 16 }}>
-        <label htmlFor="department-filter" style={{ fontWeight: 500, fontSize: 18 }}>
+      <div
+        style={{
+          margin: "24px 0 32px 0",
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+        }}
+      >
+        <label
+          htmlFor="department-filter"
+          style={{ fontWeight: 500, fontSize: 18 }}
+        >
           Filter by department:
         </label>
         <select
@@ -122,7 +162,7 @@ export function GhTable() {
             color: "#dc2626",
           }}
         >
-          Error loading departments.
+          Could not find jobs on Greenhouse for this group
         </div>
       )}
 
@@ -142,9 +182,9 @@ export function GhTable() {
               id={String(dept.id)}
               style={{
                 margin: "0 0 32px 0",
-                border: isDarkMode ? "1px solid #27272a" : "1px solid #e5e7eb",
+                border: "1px solid #27272a",
                 borderRadius: 12,
-                background: isDarkMode ? "#27272a" : "#f9fafb",
+                background: "#27272a",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
                 padding: 24,
               }}
@@ -177,11 +217,12 @@ export function GhTable() {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      background: isDarkMode ? "#1e293b" : "#fff",
+                      justifyContent: "space-between",
+                      background: "#1e293b",
                       borderRadius: 8,
                       padding: "16px 20px",
                       boxShadow: "0 1px 4px rgba(0,0,0,0.03)",
-                      border: isDarkMode ? "1px solid #334155" : "1px solid #e5e7eb",
+                      border: "1px solid #334155",
                       transition: "box-shadow 0.2s",
                       cursor: "pointer",
                     }}
@@ -192,8 +233,9 @@ export function GhTable() {
                       style={{
                         fontWeight: 600,
                         fontSize: 18,
-                        color: isDarkMode ? "#60a5fa" : "#2563eb",
+                        color: "#60a5fa",
                         textDecoration: "none",
+                        maxWidth: "350px",
                       }}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -204,7 +246,7 @@ export function GhTable() {
                       data-gh="job-location"
                       style={{
                         fontSize: 16,
-                        color: isDarkMode ? "#cbd5e1" : "#6b7280",
+                        color: "#cbd5e1",
                         marginLeft: 24,
                       }}
                     >
@@ -215,8 +257,6 @@ export function GhTable() {
               </div>
             </div>
           ))}
-
-      <GhTableBody />
     </div>
   );
 }
