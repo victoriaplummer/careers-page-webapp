@@ -8,6 +8,5 @@ declare function Navbar(props: {
   navbarLinkResources?: React.ReactNode;
   navbarLinkContact?: React.ReactNode;
   buttonTextGetStarted?: React.ReactNode;
-  localeDropdownSlot?: Types.Devlink.Slot;
   navbarLinkCareers?: React.ReactNode;
 }): React.JSX.Element;
