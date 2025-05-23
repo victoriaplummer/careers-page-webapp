@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
 import "../../devlink/global.css";
+import "./globals.css";
 import { DevLinkProvider } from "../../devlink/DevLinkProvider";
+import { HeaderAndGlobalCustomCode } from "../../devlink";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,7 +35,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
       >
-        <DevLinkProvider>{children}</DevLinkProvider>
+        <DevLinkProvider>
+          <HeaderAndGlobalCustomCode />
+          {children}
+        </DevLinkProvider>
       </body>
     </html>
   );

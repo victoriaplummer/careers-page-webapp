@@ -4,10 +4,12 @@ import * as _Builtin from "./_Builtin";
 import * as _utils from "./utils";
 import _styles from "./HeaderAndGlobalCustomCode.module.css";
 
-export function HeaderAndGlobalCustomCode({ as: _Component = _Builtin.Block }) {
+export function HeaderAndGlobalCustomCode({
+  as: _Component = _Builtin.Block,
+  logoSlot,
+}) {
   return (
     <_Component tag="header">
-      <_Builtin.HtmlEmbed value="%3Cstyle%3E%0Abody%20%7B%0A%20%20-webkit-font-smoothing%3A%20antialiased%3B%0A%20%20-moz-font-smoothing%3A%20antialiased%3B%0A%20%20-o-font-smoothing%3A%20antialiased%3B%0A%7D%0A%0A%3A%3Aselection%20%7B%0A%20%20background%3A%20var(--clr--primary-600)%3B%0A%20%20color%3A%20var(--clr--neutral-100)%3B%0A%7D%0A%3A%3A-moz-selection%20%7B%0A%20%20background%3A%20var(--clr--primary-600)%3B%0A%20%20color%3A%20var(--clr--neutral-100)%3B%0A%7D%0A%0Ainput%2C%0Atextarea%2C%0Aselect%20%7B%0A%20%20-webkit-appearance%3A%20none%3B%0A%20%20-moz-appearance%3A%20none%3B%0A%20%20appearance%3A%20none%3B%0A%20%20border-radius%3A%200%3B%0A%20%20background-image%3A%20none%3B%0A%7D%0A%0A.line-clamp%20%7B%0A%20%20display%3A%20-webkit-box%3B%0A%20%20-webkit-line-clamp%3A%203%3B%0A%20%20-webkit-box-orient%3A%20vertical%3B%0A%20%20overflow%3A%20hidden%3B%0A%7D%0A%0Aa%20%7B%0A%20%20text-underline-position%3A%20under%3B%0A%20%20text-decoration-thickness%3A%200.1em%3B%0A%20%20text-underline-offset%3A%200.05em%3B%0A%7D%0A%0A.w-richtext%20%3E%20%3Afirst-child%20%7B%0A%20%20margin-top%3A%200%3B%0A%7D%0A%0A.w-richtext%20%3E%20%3Alast-child%2C%0A.w-richtext%20ol%20li%3Alast-child%2C%0A.w-richtext%20ul%20li%3Alast-child%20%7B%0A%20%20margin-bottom%3A%200%3B%0A%7D%0A%0A.nav-list%20%7B%0A%09list-style-type%3A%20none%3B%0A%7D%0A%3C%2Fstyle%3E" />
       <_Builtin.NavbarWrapper
         className={_utils.cx(_styles, "navbar")}
         tag="div"
@@ -47,7 +49,7 @@ export function HeaderAndGlobalCustomCode({ as: _Component = _Builtin.Block }) {
                 >
                   <_Builtin.Block tag="div">{"Webflow"}</_Builtin.Block>
                 </_Builtin.Block>
-                <_Builtin.NotSupported _atom="DOM" />
+                <_Builtin.Block tag="div">{logoSlot}</_Builtin.Block>
               </_Builtin.NavbarBrand>
             </_Builtin.Block>
             <_Builtin.Block

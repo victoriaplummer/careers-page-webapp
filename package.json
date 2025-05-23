@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "echo '🚀 Starting development server...' && echo '📍 App will be available at: http://localhost:3000/careers' && next dev",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
@@ -12,6 +12,7 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
 	},
 	"dependencies": {
+		"@tanstack/react-query": "^5.76.1",
 		"next": "15.2.5",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
