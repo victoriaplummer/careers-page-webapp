@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRef } from "react";
-import { useState } from "react";
-import navbarStyles from "@/devlink/Navbar.module.css";
+import { useEffect, useState } from "react";
 import textInputBlockStyles from "@/devlink/TextInputBlock.module.css";
 import styles from "./GhTable.module.css";
 
@@ -21,6 +19,10 @@ export type Department = {
   jobs: Job[];
 };
 
+interface GhTableProps {
+  ghSlug: string;
+}
+
 async function fetchDepartments(
   ghSlug: string
 ): Promise<{ departments: Department[] }> {
@@ -32,16 +34,21 @@ async function fetchDepartments(
   return res.json();
 }
 
-export function GhTable() {
+export function GhTable({ ghSlug }: GhTableProps) {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
-  const [ghSlug, setGhSlug] = useState<string>("");
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["departments", ghSlug],
     queryFn: () => fetchDepartments(ghSlug),
     staleTime: 60 * 1000, // 1 minute
+    enabled: !!ghSlug, // Only run query if ghSlug is provided
   });
+
+  useEffect(() => {
+    if (ghSlug && data) {
+      setSelectedDepartment("all");
+    }
+  }, [ghSlug, data]);
 
   const departments = data?.departments?.filter((d) => d.jobs.length > 0) ?? [];
   console.log(departments);
@@ -50,55 +57,44 @@ export function GhTable() {
     setSelectedDepartment(e.target.value);
   };
 
+  // Show message if no slug provided
+  if (!ghSlug) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loadingState}>
+          Enter a Greenhouse slug above to view job listings
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.formSection}>
-        <label
-          htmlFor="gh-slug"
-          className={`w-form-label ${textInputBlockStyles["input-label"]}`}
-        >
-          Greenhouse slug
-        </label>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setGhSlug(inputRef.current?.value || "");
-          }}
-          className={styles.form}
-        >
-          <input
-            id="gh-slug"
-            ref={inputRef}
-            type="text"
-            placeholder={`Enter Greenhouse slug (i.e. "webflow")`}
-            className={`w-input ${textInputBlockStyles["input"]} ${styles.darkInput}`}
-          />
-          <button type="submit" className={`button ${navbarStyles.button}`}>
-            Enter
-          </button>
-        </form>
-      </div>
-
-      {/* Filter Dropdown */}
-      <div className={styles.filterSection}>
-        <label htmlFor="department-filter" className="w-form-label">
-          Filter by department:
-        </label>
-        <select
-          id="department-filter"
-          value={selectedDepartment}
-          onChange={handleFilterChange}
-          data-gh="filter"
-          className={`w-select ${styles.darkSelect}`}
-        >
-          <option value="all">All Departments</option>
-          {departments.map((dept) => (
-            <option key={dept.id} value={dept.id}>
-              {dept.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* Filter Dropdown - Only show if we have departments */}
+      {departments.length > 0 && (
+        <div className={styles.filterSection}>
+          <label
+            htmlFor="department-filter"
+            className={`w-form-label ${textInputBlockStyles["input-label"]}`}
+          >
+            Filter by department:
+          </label>
+          <select
+            id="department-filter"
+            value={selectedDepartment}
+            onChange={handleFilterChange}
+            data-gh="filter"
+            className={`w-select ${styles.darkSelect}`}
+          >
+            <option value="all">All Departments</option>
+            {departments.map((dept) => (
+              <option key={dept.id} value={dept.id}>
+                {dept.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* Loading State */}
       {isLoading && (

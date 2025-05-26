@@ -12,3 +12,129 @@
     padding-right: 1rem;
   }
 }
+
+/* Hero Section - 100vh centered layout */
+.heroSection {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsla(0, 0%, 0%, 1);
+  color: hsla(0, 0%, 100%, 1);
+  position: relative;
+}
+
+.heroContent {
+  text-align: center;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.heroContent h1 {
+  margin-bottom: 1.5rem;
+}
+
+.heroContent p {
+  margin-bottom: 3rem;
+  opacity: 0.8;
+}
+
+.formContainer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.form input {
+  background-color: hsla(0, 0%, 0%, 1) !important;
+  color: hsla(0, 0%, 100%, 1) !important;
+  border-color: var(--borderRadius-c0417f39) !important;
+  min-width: 300px;
+  max-width: 400px;
+  margin-bottom: 0;
+}
+
+.form input::placeholder {
+  color: var(--gray300-1490ec53) !important;
+}
+
+.form input:focus {
+  border-color: var(--primary-4b5c02bd) !important;
+}
+
+.form button {
+  min-width: 120px;
+}
+
+/* Scroll Indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: calc(1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: hsla(0, 0%, 100%, 0.6);
+}
+
+.scrollText {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.scrollCaret {
+  font-size: 1.5rem;
+  animation: blink 2s infinite;
+  cursor: pointer;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Results Section */
+.resultsSection {
+  width: 96%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media screen and (max-width: 767px) {
+  .resultsSection {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form input {
+    min-width: 100%;
+  }
+
+  .form button {
+    width: 100%;
+  }
+
+  .scrollIndicator {
+    bottom: 1rem;
+  }
+}
