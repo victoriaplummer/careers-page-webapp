@@ -74,7 +74,7 @@ export function Navbar({
               <_Builtin.NavbarLink
                 className={_utils.cx(_styles, "navbar-link")}
                 options={{
-                  href: "#",
+                  href: "/investment-strategies",
                 }}
               >
                 {navbarLinkFeatures}
@@ -82,7 +82,7 @@ export function Navbar({
               <_Builtin.NavbarLink
                 className={_utils.cx(_styles, "navbar-link")}
                 options={{
-                  href: "#",
+                  href: "/investment-strategies",
                 }}
               >
                 {navbarLinkProducts}
@@ -90,7 +90,7 @@ export function Navbar({
               <_Builtin.NavbarLink
                 className={_utils.cx(_styles, "navbar-link")}
                 options={{
-                  href: "#",
+                  href: "/investment-strategies",
                 }}
               >
                 {navbarLinkResources}
@@ -98,7 +98,7 @@ export function Navbar({
               <_Builtin.NavbarLink
                 className={_utils.cx(_styles, "navbar-link")}
                 options={{
-                  href: "#",
+                  href: "/contact-us",
                 }}
               >
                 {navbarLinkContact}
@@ -107,7 +107,6 @@ export function Navbar({
                 className={_utils.cx(_styles, "navbar-link")}
                 options={{
                   href: "/careers",
-                  target: "_blank",
                 }}
               >
                 {navbarLinkCareers}
@@ -140,7 +139,7 @@ export function Navbar({
                   button={false}
                   block="inline"
                   options={{
-                    href: "#",
+                    href: "/careers",
                   }}
                 >
                   <_Builtin.Block tag="div">
