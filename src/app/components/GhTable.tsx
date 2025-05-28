@@ -44,6 +44,7 @@ export function GhTable({ ghSlug }: GhTableProps) {
     enabled: !!ghSlug, // Only run query if ghSlug is provided
   });
 
+  // Reset department filter when ghSlug changes
   useEffect(() => {
     if (ghSlug && data) {
       setSelectedDepartment("all");
@@ -120,7 +121,7 @@ export function GhTable({ ghSlug }: GhTableProps) {
               String(dept.id) === selectedDepartment
           )
           .map((dept) => (
-            <div
+            <section
               key={dept.id}
               data-gh="section-wrapper"
               id={String(dept.id)}
@@ -132,31 +133,35 @@ export function GhTable({ ghSlug }: GhTableProps) {
               >
                 {dept.name}
               </h2>
-              <div
+              <ul
                 data-gh="container"
-                aria-label={dept.name}
+                aria-label={`${dept.name} job listings`}
                 className={styles.jobsContainer}
               >
                 {dept.jobs.map((job) => (
-                  <a
-                    key={job.id}
-                    data-gh="listing"
-                    id={String(job.id)}
-                    href={job.absolute_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.jobListing}
-                  >
-                    <span data-gh="job-title" className={styles.jobTitle}>
-                      {job.title}
-                    </span>
-                    <span data-gh="job-location" className={styles.jobLocation}>
-                      {job.location.name}
-                    </span>
-                  </a>
+                  <li key={job.id} className={styles.jobListItem}>
+                    <a
+                      data-gh="listing"
+                      id={String(job.id)}
+                      href={job.absolute_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.jobListing}
+                    >
+                      <span data-gh="job-title" className={styles.jobTitle}>
+                        {job.title}
+                      </span>
+                      <span
+                        data-gh="job-location"
+                        className={styles.jobLocation}
+                      >
+                        {job.location.name}
+                      </span>
+                    </a>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           ))}
     </div>
   );

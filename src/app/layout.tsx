@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "@/devlink/global.css";
 import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
@@ -18,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
+      <body>
         <DevLinkProvider>
           <div
             style={{

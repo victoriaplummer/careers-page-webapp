@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Hero Section - 100vh */}
+      {/* Hero Section */}
       <div className={styles.heroSection}>
         <div className={styles.heroContent}>
           <h1>Careers Playground</h1>
