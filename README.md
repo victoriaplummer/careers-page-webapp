@@ -33,9 +33,9 @@ Ensure the following dependencies are installed or taken care of before setting 
 
 ### 2. Clone the Webflow Demo Site
 
-This project uses Webflow UI components and styles from a demo Webflow cloneable site. Once your Webflow account is set up, create a new Webflow site by cloning the [Astral Fund](https://webflow.com/made-in-webflow/website/astralfund-919afdc1091df68b8dc1347f952a) template.
+This project uses Webflow UI components and styles from a demo Webflow cloneable site. Once your Webflow account is set up, create a new Webflow site by cloning the [Astral Fund](https://webflow.com/made-in-webflow/website/astralfund-cloud-app---careers-page) template.
 
-- Open the [Astral Fund template](https://webflow.com/made-in-webflow/website/astralfund-919afdc1091df68b8dc1347f952a)
+- Open the [Astral Fund template](https://webflow.com/made-in-webflow/website/astralfund-cloud-app---careers-page)
 - Click the "Clone in Webflow" button to create a new site
 
 ### 3. Gather site details for `.env`
