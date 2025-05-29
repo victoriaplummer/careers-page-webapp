@@ -57,7 +57,7 @@ Additionally, set the `WEBFLOW_SITE_ID` value to the Webflow site ID where the a
 
 Lastly, set the `NEXT_PUBLIC_BASE_PATH` to the mount path of this Webflow Cloud app where it will live on the Webflow site. You can default to `/careers`.
 
-### 24. Install and run locally
+### 4. Install and run locally
 
 ```bash
 npm install
