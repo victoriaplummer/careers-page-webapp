@@ -27,7 +27,7 @@ Ensure the following dependencies are installed or taken care of before setting 
 
 ### 1. Fork and clone the repository
 
-- [Fork this repo](https://github.com/Webflow-Examples/careers-page-webapp/fork) into your own repostiories so you have a copy of this project to work with
+- [Fork this repo](https://github.com/Webflow-Examples/careers-page-webapp/fork) into your own repositories so you have a copy of this project to work with
 - Clone the repo down to your local machine
 - `cd careers-page-webapp`
 
@@ -57,7 +57,7 @@ Additionally, set the `WEBFLOW_SITE_ID` value to the Webflow site ID where the a
 
 Lastly, set the `NEXT_PUBLIC_BASE_PATH` to the mount path of this Webflow Cloud app where it will live on the Webflow site. You can default to `/careers`.
 
-### 2. Install and run locally
+### 24. Install and run locally
 
 ```bash
 npm install
@@ -67,7 +67,7 @@ npm install
 npm run dev
 ```
 
-### 3. Access the Careers Page
+### 5. Access the Careers Page
 
 The development server will start and automatically show you where to navigate:
 
@@ -78,7 +78,7 @@ The development server will start and automatically show you where to navigate:
 
 Open [http://localhost:3000/careers](http://localhost:3000/careers) in your browser to see the careers page. In the app, you can type in a Greenhouse source to pull job listings from. Try `webflow`, `anthropic`, or `greenhouse` to start.
 
-### 4. Sync DevLink
+### 6. Sync DevLink
 
 This example repo has components already in place from the Astral Fund template site, but if you make any changes to the components on the Webflow site, you'll need to sync the changes down using the `webflow-cli` devlink tool.
 
@@ -86,13 +86,13 @@ Once your `.env` is set up, run `webflow devlink sync` in the terminal.
 
 ## 🚀 Deploy Webflow Cloud app
 
-Once everything locally works ok, it's time to build and deploy the app to your Webflow site at the mounted path.
+Once everything locally works OK, it's time to build and deploy the app to your Webflow site at the mounted path.
 
 First, push up any code changes made to the project to the forked remote Github repo.
 
 ### Create Webflow Cloud app
 
-> For more detail guidance on creating a Webflow Cloud app, [see docs here](https://developers.webflow.com/webflow-cloud/bring-your-own-app) for a step-by-step.
+> For more detailed guidance on creating a Webflow Cloud app, [see docs here](https://developers.webflow.com/webflow-cloud/bring-your-own-app) for a step-by-step.
 
 In your Webflow site settings, navigate to the **Webflow Cloud** tab, click "Install Github App", and follow the prompts so Webflow can access your forked repo.
 
