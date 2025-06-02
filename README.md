@@ -17,7 +17,7 @@ A [Webflow Cloud](https://webflow.com/cloud) example app to showcase an example 
 
 ## 📋 Prerequisites
 
-Ensure the following dependencies are installed or taken care of before setting this example app up locally
+Make sure you have the following before running the app locally:
 
 - Install Node.js 18+ / npm / Git
 - Webflow account (sign up for free)
@@ -27,16 +27,16 @@ Ensure the following dependencies are installed or taken care of before setting 
 
 ### 1. Fork and clone the repository
 
-- [Fork this repo](https://github.com/Webflow-Examples/careers-page-webapp/fork) into your own repostiories so you have a copy of this project to work with
+- [Fork this repo](https://github.com/Webflow-Examples/careers-page-webapp/fork) into your own repositories so you have a copy of this project to work with
 - Clone the repo down to your local machine
 - `cd careers-page-webapp`
 
 ### 2. Clone the Webflow Demo Site
 
-This project uses Webflow UI components and styles from a demo Webflow cloneable site. Once your Webflow account is set up, create a new Webflow site by cloning the [Astral Fund](https://webflow.com/made-in-webflow/website/astralfund-cloud-app---careers-page) template.
+This project uses Webflow UI components and styles from a demo Webflow cloneable site. Clone the demo site into your workspace:
 
 - Open the [Astral Fund template](https://webflow.com/made-in-webflow/website/astralfund-cloud-app---careers-page)
-- Click the "Clone in Webflow" button to create a new site
+- Click "Clone in Webflow" button to spin up your own site
 
 ### 3. Gather site details for `.env`
 
@@ -45,19 +45,19 @@ This project uses Webflow UI components and styles from a demo Webflow cloneable
 Once your new site is created, generate a Site Token to use for syncing Webflow components with Devlink:
 
 - Navigate to Site Settings -> Apps & Integrations
-- In the "API access" section, click "Generate API token"
+- In the "API access" section, click "Generate API token" \*
 - Choose a name, and find "Sites"; select the "Read-only" scope from the dropdown
 - Generate token and copy the token value (you cannot retrieve this later, so save it accordingly)
 
+\* Only users with Site Manager access (or higher) can generate an API token.
+
 #### Fill in the `.env` file
 
-Now, back in your code editor, make a copy of the `.env.example` file and rename it to `.env`. Set the site token value you just generated above in the `WEBFLOW_SITE_API_TOKEN`.
+- In your editor, duplicate `.env.example`, rename the copy to `.env`, and paste the token you just generated into the `WEBFLOW_SITE_API_TOKEN` field.
+- Set the `WEBFLOW_SITE_ID` value to the ID of your Webflow site. You can find this value in under Site Settings -> General -> Overview.
+- Set `NEXT_PUBLIC_BASE_PATH` to the mount path (aka base URL segment) of this Webflow Cloud app where it will live on the Webflow site. You can default to `/careers`.
 
-Additionally, set the `WEBFLOW_SITE_ID` value to the Webflow site ID where the app will be deployed. You can find this value in your Webflow site settings -> General -> Overview section.
-
-Lastly, set the `NEXT_PUBLIC_BASE_PATH` to the mount path of this Webflow Cloud app where it will live on the Webflow site. You can default to `/careers`.
-
-### 2. Install and run locally
+### 4. Install and run locally
 
 ```bash
 npm install
@@ -67,7 +67,7 @@ npm install
 npm run dev
 ```
 
-### 3. Access the Careers Page
+### 5. Access the Careers Page
 
 The development server will start and automatically show you where to navigate:
 
@@ -78,7 +78,7 @@ The development server will start and automatically show you where to navigate:
 
 Open [http://localhost:3000/careers](http://localhost:3000/careers) in your browser to see the careers page. In the app, you can type in a Greenhouse source to pull job listings from. Try `webflow`, `anthropic`, or `greenhouse` to start.
 
-### 4. Sync DevLink
+### 6. Sync DevLink
 
 This example repo has components already in place from the Astral Fund template site, but if you make any changes to the components on the Webflow site, you'll need to sync the changes down using the `webflow-cli` devlink tool.
 
@@ -86,25 +86,27 @@ Once your `.env` is set up, run `webflow devlink sync` in the terminal.
 
 ## 🚀 Deploy Webflow Cloud app
 
-Once everything locally works ok, it's time to build and deploy the app to your Webflow site at the mounted path.
+Once everything locally works OK, it's time to build and deploy the app to your Webflow site at the mounted path.
 
-First, push up any code changes made to the project to the forked remote Github repo.
+First, push up any code changes made to the project to the forked remote GitHub repo.
 
 ### Create Webflow Cloud app
 
-> For more detail guidance on creating a Webflow Cloud app, [see docs here](https://developers.webflow.com/webflow-cloud/bring-your-own-app) for a step-by-step.
+> For more detailed guidance on creating a Webflow Cloud app, [see docs here](https://developers.webflow.com/webflow-cloud/bring-your-own-app) for a step-by-step.
 
-In your Webflow site settings, navigate to the **Webflow Cloud** tab, click "Install Github App", and follow the prompts so Webflow can access your forked repo.
+In your Webflow site settings, navigate to the **Webflow Cloud** tab, click "Install GitHub App", and follow the prompts so Webflow can access your forked repo.
 
-Back in the Webflow Cloud page, click the "Create New Project" button and follow the prompts accordingly to add your project name, and the location of your Github repo.
+Back in the Webflow Cloud page, click the "Create New Project" button and follow the prompts accordingly to add your project name, and the location of your GitHub repo.
 
-You should then be prompted to create an **Environment**, so select the Github branch you're working off of in your project (usually `main`), and for the **Mount path**, this should match the value in your `.env` file for the `NEXT_PUBLIC_BASE_PATH` variable (`/careers` in this example).
+When you are prompted to create an **Environment**:
+1. **Branch** - Select the GitHub branch you're working from (usually `main`)
+2. **Mount Path** - Enter the same value you set for `NEXT_PUBLIC_BASE_PATH` variable in `.env` (`/careers` in this example).
 
-Once your project is created, you'll need to do a re-publish of your Webflow site (click "Publish"). When that's done, click the name of your Webflow Cloud project in the table to navigate into the **Environments**, then click on the `main` branch name to step into **Deployments**.
+After the project is created, click "Publish" to re-publish your Webflow site. Once publishing completes, open your Webflow Cloud project, navigate into the **Environments**, then select the `main` branch name to view **Deployments**.
 
 ### Add environment variables
 
-On the **Deployments** page, click on the "Environment Variables" tab where you'll have the chance to add all the environment variables from your `.env` file. Note that when you pushed up your code to the repo, the `.env` file is ignored by git, so adding those variables and associated values here will ensure your deployed app can still reference them.
+On the **Deployments** page, open the "Environment Variables" tab and add all the environment variables from your `.env` file. Because the `.env` file is ignored by git, these variables and associated values must be added here - this will ensure your deployed app can access them.
 
 ### Deploy the app
 
@@ -116,7 +118,7 @@ If you see the same webapp careers page from localhost, congrats! You've deploye
 
 If you make additional changes to your project, simply push them up to your repo on `main`, and Webflow will automatically kick off a new deployment with your changes. Also, if your deployment build fails for any reason, check the "Deployment History" for more logs.
 
-## Build the Application
+## Build Locally
 
 To check a build locally before Webflow kicks off a build and deploys the latest changes, simply run the following commands:
 
@@ -142,3 +144,10 @@ src/
 ├── devlink/              # Webflow components
 webflow.json              # Config for Webflow Cloud + DevLink
 ```
+
+## 🤝 Contributing
+Feel free to submit issues and enhancement requests!
+
+
+## 📄 License
+This project is MIT licensed.
